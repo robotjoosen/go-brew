@@ -103,7 +103,7 @@ func (m RJProgram) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m, tick()
 	}
 
-	// Return the updated brew_program to the Bubble Tea runtime for processing.
+	// Return the updated program to the Bubble Tea runtime for processing.
 	// Note that we're not returning a command.
 	return m, nil
 }
@@ -119,7 +119,7 @@ func (m RJProgram) View() (s string) {
 			flexbox.NewRow().AddCells([]*stickers.FlexBoxCell{
 				stickers.NewFlexBoxCell(30, 100).
 					SetMinWidth(64).
-					SetContent(domain.SpriteTFC()),
+					SetContent(domain.SpriteRJLogo()),
 			}),
 		})
 		doc.WriteString(flexbox.Render() + "\n")

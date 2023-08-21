@@ -7,21 +7,21 @@ import (
 	"time"
 )
 
-type Table struct {
+type SchemaTable struct {
 	recipe []brew.Pour
 }
 
-func NewTable(recipe []brew.Pour) WidgetAware {
-	return &Table{
+func NewSchemaTable(recipe []brew.Pour) WidgetAware {
+	return &SchemaTable{
 		recipe: recipe,
 	}
 }
 
-func (t *Table) SetPosition(int) WidgetAware {
+func (t *SchemaTable) SetPosition(int) WidgetAware {
 	return t
 }
 
-func (t *Table) Render() (string, error) {
+func (t *SchemaTable) Render() (string, error) {
 	var totalWeight int
 	var totalDuration time.Duration
 

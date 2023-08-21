@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/robotjoosen/go-brew/cmd/cli/cmd"
+	"github.com/robotjoosen/go-brew/cmd/go-brew-cli/cmd"
 )
 
 func init() {

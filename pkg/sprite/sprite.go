@@ -1,6 +1,10 @@
-package brew_program
+package sprite
 
 type Sprites struct{}
+
+func New() Sprites {
+	return Sprites{}
+}
 
 func (s Sprites) Logo() string {
 	return `╭─────╮      ╭────╮              

@@ -33,7 +33,7 @@ func (g *Graph) Render() (string, error) {
 	defer g.mux.RUnlock()
 
 	graphData := g.schemaToPoints(g.schema)
-	graphSize := []int{20, 6}
+	graphSize := []int{22, 7}
 
 	return asciigraph.PlotMany(
 		g.plotGraphSegment(graphData, g.position+1, graphSize[0]),
