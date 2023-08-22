@@ -1,9 +1,10 @@
 package widget
 
 import (
+	"strconv"
+
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/robotjoosen/go-brew/pkg/brew"
-	"strconv"
 )
 
 type ConfigTable struct {

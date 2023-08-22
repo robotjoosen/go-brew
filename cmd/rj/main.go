@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/robotjoosen/go-brew/cmd/rj/rj_program"
 	"os"
 
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/robotjoosen/go-brew/cmd/rj/rj_program"
 )
 
 func main() {

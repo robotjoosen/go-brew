@@ -1,11 +1,11 @@
 package tetsu_test
 
 import (
-	"github.com/robotjoosen/go-brew/pkg/brew"
-	"github.com/robotjoosen/go-brew/pkg/recipe/tetsu"
 	"testing"
 	"time"
 
+	"github.com/robotjoosen/go-brew/pkg/brew"
+	"github.com/robotjoosen/go-brew/pkg/tetsu"
 	"github.com/stretchr/testify/assert"
 )
 

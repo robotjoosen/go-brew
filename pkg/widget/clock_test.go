@@ -1,11 +1,12 @@
 package widget_test
 
 import (
+	"testing"
+	"time"
+
 	"github.com/robotjoosen/go-brew/pkg/brew"
 	"github.com/robotjoosen/go-brew/pkg/widget"
 	"github.com/stretchr/testify/assert"
-	"testing"
-	"time"
 )
 
 func TestClockGenerate(t *testing.T) {

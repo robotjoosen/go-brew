@@ -2,10 +2,11 @@ package screen
 
 import (
 	"context"
+	"time"
+
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/robotjoosen/go-brew/pkg/sprite"
-	"time"
 )
 
 type SplashScreen struct {

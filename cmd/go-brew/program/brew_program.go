@@ -1,6 +1,9 @@
 package program
 
 import (
+	"strings"
+	"time"
+
 	"github.com/charmbracelet/bubbles/help"
 	"github.com/charmbracelet/bubbles/key"
 	"github.com/charmbracelet/bubbles/textinput"
@@ -9,10 +12,8 @@ import (
 	"github.com/robotjoosen/go-brew/cmd/go-brew/screen"
 	"github.com/robotjoosen/go-brew/pkg/brew"
 	"github.com/robotjoosen/go-brew/pkg/recipe"
-	"github.com/robotjoosen/go-brew/pkg/recipe/tetsu"
 	"github.com/robotjoosen/go-brew/pkg/sprite"
-	"strings"
-	"time"
+	"github.com/robotjoosen/go-brew/pkg/tetsu"
 )
 
 type (
@@ -25,8 +26,7 @@ type (
 		help          help.Model
 	}
 
-	Configuration struct {
-	}
+	Configuration struct{}
 
 	keymap struct {
 		helper key.Binding
@@ -41,7 +41,7 @@ func NewBrewProgram() BrewProgram {
 		FourSixMethod().
 		SetFlavor(tetsu.BalancedFlavor).
 		SetConcentration(tetsu.StrongConcentration).
-		SetCoffeeWeight(16)
+		SetCoffeeWeight(20)
 
 	screenFactory := screen.NewFactory().
 		UpdateRecipeFactory(defaultRecipe)
@@ -101,16 +101,14 @@ func (m BrewProgram) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tickMsg:
 		return m, tick()
 	case brew.Recipe:
-		// todo:
-		// 		- do a replacement, which should only be a partial update of the recipe.
-		//		- fix water vs ratio calculation with configuration
-
+		// todo: do a replacement, which should only be a partial update of the recipe.
 		m.screenFactory.UpdateRecipeFactory(
 			recipe.NewRecipeFactory().
 				FourSixMethod().
 				SetFlavor(tetsu.BalancedFlavor).
 				SetConcentration(tetsu.StrongConcentration).
-				SetCoffeeWeight(msg.Coffee),
+				SetCoffeeWeight(msg.Coffee).
+				SetWaterWeight(msg.Water),
 		)
 
 		// and switch to schema

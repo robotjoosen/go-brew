@@ -1,9 +1,9 @@
 package tetsu
 
 import (
+	"github.com/nethruster/go-fraction"
 	"github.com/robotjoosen/go-brew/pkg/brew"
 	"strconv"
-	"strings"
 	"sync"
 	"time"
 )
@@ -20,13 +20,9 @@ const (
 	StrongConcentration
 )
 
-const (
-	CoffeeToWaterRatio = "1:15"
-)
-
 type FourSixMethod struct {
 	mux                 *sync.RWMutex
-	ratio               string
+	ratio               []int64
 	coffeeFlavor        int
 	coffeeConcentration int
 	coffeeWeight        int
@@ -35,8 +31,10 @@ type FourSixMethod struct {
 
 func New() *FourSixMethod {
 	return &FourSixMethod{
-		mux:   new(sync.RWMutex),
-		ratio: CoffeeToWaterRatio,
+		mux:          new(sync.RWMutex),
+		ratio:        []int64{1, 15},
+		coffeeWeight: 20,
+		waterWeight:  300,
 	}
 }
 
@@ -45,9 +43,17 @@ func (fsm *FourSixMethod) SetCoffeeWeight(weight int) brew.Brewable {
 	defer fsm.mux.RUnlock()
 
 	fsm.coffeeWeight = weight
+	fsm.ratio = fsm.calcRatio()
 
-	_, waterRatio := convertRatio(CoffeeToWaterRatio)
-	fsm.waterWeight = weight * waterRatio
+	return fsm
+}
+
+func (fsm *FourSixMethod) SetWaterWeight(weight int) brew.Brewable {
+	fsm.mux.RLock()
+	defer fsm.mux.RUnlock()
+
+	fsm.waterWeight = weight
+	fsm.ratio = fsm.calcRatio()
 
 	return fsm
 }
@@ -75,7 +81,7 @@ func (fsm *FourSixMethod) GetRecipe() brew.Recipe {
 	defer fsm.mux.RUnlock()
 
 	return brew.Recipe{
-		Ratio:  fsm.ratio,
+		Ratio:  strconv.Itoa(int(fsm.ratio[0])) + ":" + strconv.Itoa(int(fsm.ratio[1])),
 		Coffee: fsm.coffeeWeight,
 		Water:  fsm.waterWeight,
 		Schema: fsm.GenerateSchema(),
@@ -117,21 +123,11 @@ func (fsm *FourSixMethod) GenerateSchema() (pours []brew.Pour) {
 	return
 }
 
-func convertRatio(ratio string) (coffeeRatio int, waterRatio int) {
-	ratios := strings.Split(ratio, ":")
-	if len(ratios) != 2 {
-		panic("ratio is not what you think")
-	}
-
-	coffeeRatio, err := strconv.Atoi(ratios[0])
+func (fsm *FourSixMethod) calcRatio() []int64 {
+	f, err := fraction.New(fsm.coffeeWeight, fsm.waterWeight)
 	if err != nil {
-		panic(err.Error())
+		return make([]int64, 2)
 	}
 
-	waterRatio, err = strconv.Atoi(ratios[1])
-	if err != nil {
-		panic(err.Error())
-	}
-
-	return
+	return []int64{f.Numerator(), f.Denominator()}
 }

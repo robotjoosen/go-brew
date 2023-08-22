@@ -1,12 +1,13 @@
 package screen
 
 import (
+	"strconv"
+	"strings"
+
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/robotjoosen/go-brew/pkg/brew"
-	"strconv"
-	"strings"
 )
 
 var (

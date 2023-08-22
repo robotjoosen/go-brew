@@ -2,12 +2,13 @@ package screen
 
 import (
 	"context"
+	"strconv"
+	"time"
+
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/robotjoosen/go-brew/pkg/brew"
 	"github.com/robotjoosen/go-brew/pkg/widget"
-	"strconv"
-	"time"
 )
 
 type HelperScreen struct {
@@ -32,7 +33,7 @@ func (s *HelperScreen) Restart() {
 	s.counter = time.Duration(0)
 }
 
-func (s *HelperScreen) Update(msg tea.Msg) tea.Cmd {
+func (s *HelperScreen) Update(_ tea.Msg) tea.Cmd {
 	return nil
 }
 
@@ -44,7 +45,7 @@ func (s *HelperScreen) Render() string {
 		Border(lipgloss.RoundedBorder())
 
 	graphString, _ := widget.
-		NewGraph(s.recipe.Schema).
+		NewGraph(s.recipe).
 		SetPosition(int(s.counter.Seconds())).
 		Render()
 

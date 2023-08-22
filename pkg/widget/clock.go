@@ -3,9 +3,10 @@ package widget
 import (
 	"errors"
 	"fmt"
-	"github.com/robotjoosen/go-brew/pkg/brew"
 	"math"
 	"sync"
+
+	"github.com/robotjoosen/go-brew/pkg/brew"
 )
 
 const (
@@ -80,7 +81,7 @@ func (c *Clock) renderPoints(pourDuration float64) []string {
 	currentTime := math.Round((ClockPositions / pourDuration) * (float64(c.position) - c.additionalTime))
 
 	points := make([]string, ClockPositions)
-	for i, _ := range points {
+	for i := range points {
 		if i < int(pourTime) {
 			points[i] = Star
 		} else {

@@ -1,10 +1,11 @@
 package widget
 
 import (
-	"github.com/charmbracelet/lipgloss"
-	"github.com/robotjoosen/go-brew/pkg/brew"
 	"strconv"
 	"sync"
+
+	"github.com/charmbracelet/lipgloss"
+	"github.com/robotjoosen/go-brew/pkg/brew"
 )
 
 var (
@@ -60,7 +61,7 @@ func (l *List) SetPosition(pos int) WidgetAware {
 
 func (l *List) Render() (output string, err error) {
 	var ls string
-	for i, _ := range l.schema {
+	for i := range l.schema {
 		ls += listItem(strconv.Itoa(i)) + "\n"
 	}
 

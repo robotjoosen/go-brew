@@ -1,21 +1,22 @@
 package widget
 
 import (
+	"sync"
+
 	"github.com/guptarohit/asciigraph"
 	"github.com/robotjoosen/go-brew/pkg/brew"
-	"sync"
 )
 
 type Graph struct {
 	mux      *sync.RWMutex
-	schema   []brew.Pour
+	recipe   brew.Recipe
 	position int
 }
 
-func NewGraph(schema []brew.Pour) WidgetAware {
+func NewGraph(recipe brew.Recipe) WidgetAware {
 	return &Graph{
 		mux:    new(sync.RWMutex),
-		schema: schema,
+		recipe: recipe,
 	}
 }
 
@@ -32,7 +33,7 @@ func (g *Graph) Render() (string, error) {
 	g.mux.RLock()
 	defer g.mux.RUnlock()
 
-	graphData := g.schemaToPoints(g.schema)
+	graphData := g.schemaToPoints(g.recipe.Schema)
 	graphSize := []int{22, 7}
 
 	return asciigraph.PlotMany(

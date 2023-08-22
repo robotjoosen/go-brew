@@ -2,23 +2,25 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/robotjoosen/go-brew/pkg/brew"
-	"github.com/robotjoosen/go-brew/pkg/recipe"
-	"github.com/robotjoosen/go-brew/pkg/recipe/tetsu"
 	"os"
 	"strconv"
 	"time"
 
 	"github.com/jedib0t/go-pretty/v6/table"
+	"github.com/robotjoosen/go-brew/pkg/brew"
 	"github.com/robotjoosen/go-brew/pkg/domain"
+	"github.com/robotjoosen/go-brew/pkg/recipe"
+	"github.com/robotjoosen/go-brew/pkg/tetsu"
 	"github.com/rs/zerolog/log"
 	"github.com/schollz/progressbar/v3"
 	"github.com/spf13/cobra"
 )
 
-var Flavor string
-var Concentration string
-var Coffee string
+var (
+	Flavor        string
+	Concentration string
+	Coffee        string
+)
 
 var RootCmd = &cobra.Command{
 	Short: "GO Brew - a simple CLI brew tool",

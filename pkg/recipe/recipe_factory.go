@@ -1,7 +1,7 @@
 package recipe
 
 import (
-	"github.com/robotjoosen/go-brew/pkg/recipe/tetsu"
+	"github.com/robotjoosen/go-brew/pkg/tetsu"
 )
 
 type Factory struct{}
